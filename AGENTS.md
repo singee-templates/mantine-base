@@ -1,16 +1,25 @@
-# Repository Guidelines
+# Repository Guidelines for AI
+
+This file provides guidance to AI Code Agent when working with code in this repository.
 
 ## Project Structure & Module Organization
 
-The app is a Mantine-based TanStack Router starter. Source lives in `src/`. Global routing is defined in `src/router.tsx`, with route modules in `src/routes` (`__root.tsx` for layout, `index.tsx` for the landing page). Shared UI composites belong in `src/components`, design primitives in `src/ui`, and reusable fixtures in `src/data`. Styling overrides sit in `src/styles.css`. Static files stay in `public/`, and production artifacts are written to `dist/`. Colocate new feature assets with the component or route that consumes them to keep dependencies obvious.
+Source lives in `src/`. Global routing is defined in `src/router.tsx`, with route modules in `src/routes` (`__root.tsx` for layout, `index.tsx` for the landing page). Shared UI composites belong in `src/components`, design primitives in `src/ui`. Styling overrides sit in `src/styles.css`. Static files stay in `public/`, and production artifacts are written to `dist/` and `.output/`. Colocate new feature assets with the component or route that consumes them to keep dependencies obvious.
+
+- UI: Mantine v8. See `.ai/mantine.md`. Routing: TanStack Start/Router. See `.ai/tanstack-start.md` `.ai/tanstack-router.md`.
+- Generated files like `routeTree.gen.ts` are auto-created; do not edit.
 
 ## Build, Test & Development Commands
 
-Use pnpm for everything. `pnpm dev` starts the Vite dev server on port 3000 with hot reload. `pnpm build` emits the optimized bundle into `dist/`, while `pnpm serve` runs the Nitro server from `.output/` to sanity-check SSR. `pnpm check:types` runs `tsc --noEmit`. `pnpm lint` applies the TanStack + React ESLint rules, and `pnpm format` runs Prettier then auto-fixes lint errors. `pnpm test` executes the Vitest suite in run mode; append `--watch` while iterating. Before declaring any Agent task complete, re-run `pnpm check:types` and `pnpm format` and ensure both commands pass cleanly.
+Use pnpm for everything. `pnpm dev` starts the Vite dev server on port 3000 with hot reload. `pnpm build` emits the optimized bundle into `dist/`, while `pnpm serve` runs the Nitro server from `.output/` to sanity-check SSR. `pnpm check:types` runs `tsc --noEmit`. `pnpm lint` applies the TanStack + React ESLint rules, and `pnpm format` runs Prettier then auto-fixes lint errors. `pnpm test` executes the Vitest suite in run mode; append `--watch` while iterating.
+
+Before declaring any Agent task complete, re-run `pnpm check:types` and `pnpm format` and ensure both commands pass cleanly.
 
 ## Coding Style & Naming Conventions
 
-Write TypeScript React function components. Prettier enforces 2-space indents, semicolons, single quotes, and trailing commas—never hand-format around it. Use PascalCase for components (`DashboardCard.tsx`), camelCase for hooks/utilities, and kebab-case for multi-word route files (`team-settings.tsx`). Mantine styles should live beside their component, leveraging Mantine’s theming utilities before reaching for raw CSS. ESLint errors such as `react/button-has-type` and `react/self-closing-comp` are considered blocking; fix them prior to review.
+Write TypeScript React function components. Prettier enforces 2-space indents, semicolons, single quotes, and trailing commas—never hand-format around it.
+
+Use PascalCase for components (`DashboardCard.tsx`), camelCase for hooks/utilities. Mantine styles should live beside their component, leveraging Mantine's theming utilities before reaching for raw CSS. ESLint errors such as `react/button-has-type` and `react/self-closing-comp` are considered blocking; fix them prior to review.
 
 ## Testing Guidelines
 
@@ -22,4 +31,32 @@ Commits should mirror the existing short, imperative pattern (`use mantine compo
 
 ## Security & Configuration Tips
 
-Secrets belong in `.env.local` (gitignored); reference them through Vite’s `import.meta.env`. Run `lefthook install` once so git hooks catch lint/test regressions pre-push. Document any third-party scripts or analytics additions in the PR, including CSP or token requirements.
+Secrets belong in `.env.local` (gitignored); reference them through Vite's `import.meta.env`. Run `lefthook install` once so git hooks catch lint/test regressions pre-push. Document any third-party scripts or analytics additions in the PR, including CSP or token requirements.
+
+## Notes
+
+1. Prefer Mantine components and styles; avoid unnecessary custom CSS.
+2. Extract custom components into the `src/components/` directory (and then you can import them with `~components/`); use CSS Modules for each component's styles.
+3. Always use English when writing code, comments, and documentation.
+
+## Dependencies / Tools
+
+### Mantine
+
+The project uses [Mantine](https://mantine.dev/) v8 for UI components. Read .ai/mantine.md for its documentation.
+
+### Tanstack Start
+
+The project uses [Tanstack Start](https://tanstack.com/start/latest/docs/) for routing. Read .ai/tanstack-start.md for its documentation.
+
+And you can use the context7 mcp tool with the library id `/websites/tanstack_com-start-latest` to load (or search) docs.
+
+### Tanstack Router
+
+Tanstack Start uses the Tanstack Router under the hood. Read .ai/tanstack-router.md for its documentation.
+
+And you can use the context7 mcp tool with the library id `/websites/tanstack_router` to load (or search) docs.
+
+### Context7
+
+If you need to get some other documentations that you don't know exactly, you can use the context7 mcp tool.

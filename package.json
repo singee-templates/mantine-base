@@ -10,7 +10,8 @@
     "lint": "eslint",
     "format": "prettier --write . && eslint --fix",
     "check:types": "tsc --noEmit",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "gen:aidocs": "bash scripts/generate-ai-docs.sh"
   },
   "dependencies": {
     "@mantine/carousel": "^8.3.7",
