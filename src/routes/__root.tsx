@@ -5,9 +5,10 @@ import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { NavigationProgress } from '@mantine/nprogress';
 import { ModalsProvider } from '@mantine/modals';
-
 import Header from '../components/Header';
-import appCss from '../styles.css?url';
+import appCss from '~styles.css?url';
+import { theme } from '~ui/theme';
+
 
 export const Route = createRootRoute({
   head: () => ({
@@ -41,7 +42,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <MantineProvider>
+        <MantineProvider theme={theme}>
           <ModalsProvider>
             <Header />
             {children}
