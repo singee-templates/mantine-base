@@ -2,7 +2,7 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { MantineProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
+import { Toaster } from 'sonner';
 import { NavigationProgress } from '@mantine/nprogress';
 import { ModalsProvider } from '@mantine/modals';
 import appCss from '~styles.css?url';
@@ -47,7 +47,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         >
           <ModalsProvider>{children}</ModalsProvider>
 
-          <Notifications position="top-center" />
+          <Toaster position="top-center" richColors />
           <NavigationProgress />
         </MantineProvider>
         <TanStackDevtools

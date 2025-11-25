@@ -13,6 +13,7 @@ import { CardsCreateAccount } from '~components/demo/create-account';
 import { CardsReportIssue } from '~components/demo/report-issue';
 import { CardsDataTable } from '~components/demo/data-table';
 import { CardsShare } from '~components/demo/share';
+import { CardsNotifications } from '~components/demo/notifications';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -40,6 +41,7 @@ function RouteComponent() {
                 <CardsReportIssue />
               </Stack>
             </SimpleGrid>
+            <CardsNotifications />
           </Stack>
         </Grid.Col>
 

@@ -57,6 +57,25 @@ Tanstack Start uses the Tanstack Router under the hood. Read .ai/tanstack-router
 
 And you can use the context7 mcp tool with the library id `/websites/tanstack_router` to load (or search) docs.
 
+### Sonner
+
+The project uses [Sonner](https://sonner.emilkowal.ski/) for toast notifications instead of @mantine/notifications. Import `toast` from `sonner` to show notifications:
+
+```tsx
+import { toast } from 'sonner';
+
+toast.success('Success message');
+toast.error('Error message');
+toast.info('Info message');
+toast.warning('Warning message');
+toast.loading('Loading...');
+toast.promise(promise, {
+  loading: 'Loading...',
+  success: 'Done!',
+  error: 'Error!',
+});
+```
+
 ### Context7
 
 If you need to get some other documentations that you don't know exactly, you can use the context7 mcp tool.
