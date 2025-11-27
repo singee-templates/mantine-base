@@ -67,6 +67,32 @@ Visit [http://localhost:3000](http://localhost:3000) to see your app.
 └── CLAUDE.md              # AI assistant guidelines
 ```
 
+## 🔐 Environment Configuration
+
+This template uses environment variables for configuration. Here's how the environment files work:
+
+### Files Overview
+
+| File           | Purpose                                                             | Git tracked |
+| -------------- | ------------------------------------------------------------------- | ----------- |
+| `.env.example` | Template file with all available environment variables              | Yes         |
+| `.env`         | Your local environment variables with actual values                 | No          |
+| `.envrc`       | [direnv](https://direnv.net/) configuration for auto-loading `.env` | Yes         |
+
+### Usage in Code
+
+In client code, you need to use vite's `import.meta.env` to access environment variables, and in server code, you should use `process.env`.
+
+```tsx
+// Client-side (must be prefixed with VITE_)
+const apiUrl = import.meta.env.VITE_API_URL;
+
+// Server-side (in loaders, actions, etc.)
+const secretKey = process.env.SECRET_KEY;
+```
+
+> **Note:** Only variables prefixed with `VITE_` are exposed to the client-side code. Keep sensitive values without this prefix.
+
 ## 📦 Available Scripts
 
 | Script              | Description                           |
