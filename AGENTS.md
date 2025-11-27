@@ -9,29 +9,50 @@ Source lives in `src/`. Global routing is defined in `src/router.tsx`, with rout
 - UI: Mantine v8. See `.ai/mantine.md`. Routing: TanStack Start/Router. See `.ai/tanstack-start.md` `.ai/tanstack-router.md`.
 - Generated files like `routeTree.gen.ts` are auto-created; do not edit.
 
-## Build, Test & Development Commands
+## Build & Development Commands
 
-Use pnpm for everything. `pnpm dev` starts the Vite dev server on port 3000 with hot reload. `pnpm build` emits the optimized bundle into `dist/`, while `pnpm serve` runs the Nitro server from `.output/` to sanity-check SSR. `pnpm check:types` runs `tsc --noEmit`. `pnpm lint` applies the TanStack + React ESLint rules, and `pnpm format` runs Prettier then auto-fixes lint errors. `pnpm test` executes the Vitest suite in run mode; append `--watch` while iterating.
+Use pnpm for everything. `pnpm dev` starts the Vite dev server on port 3000 with hot reload. `pnpm build` emits the optimized bundle into `.output/`, while `pnpm preview` runs the Nitro server from `.output/` to sanity-check SSR. `pnpm check:types` runs `tsc --noEmit`. `pnpm lint` applies the TanStack + React ESLint rules, and `pnpm format` runs Prettier then auto-fixes lint errors.
 
 Before declaring any Agent task complete, re-run `pnpm check:types` and `pnpm format` and ensure both commands pass cleanly.
 
+## ESLint
+
+ESLint 9 flat config is used (`eslint.config.js`). The configuration extends `@tanstack/config/eslint` and adds React-specific rules via `eslint-plugin-react`.
+
+Key React rules enforced (errors):
+
+- `react/button-has-type` - buttons must have an explicit `type` attribute
+- `react/self-closing-comp` - components without children must self-close
+- `react/jsx-curly-brace-presence` - no unnecessary curly braces in JSX
+- `react/jsx-boolean-value` - omit `={true}` for boolean props
+- `react/jsx-fragments` - use `<>` syntax for fragments
+- `react/no-children-prop` - don't pass children as a prop
+
+Run `pnpm lint` to check for errors. ESLint errors are blocking and must be fixed before committing.
+
+## Prettier
+
+Prettier config lives in `prettier.config.js`:
+
+- `semi: true` - always use semicolons
+- `singleQuote: true` - use single quotes for strings
+- `trailingComma: 'all'` - trailing commas everywhere
+
+Run `pnpm format` to format and fix lint errors in one step (runs Prettier then ESLint --fix).
+
 ## Coding Style & Naming Conventions
 
-Write TypeScript React function components. Prettier enforces 2-space indents, semicolons, single quotes, and trailing commas—never hand-format around it.
+Write TypeScript React function components. Prettier enforces semicolons, single quotes, and trailing commas—never hand-format around it.
 
-Use PascalCase for components (`DashboardCard.tsx`), camelCase for hooks/utilities. Mantine styles should live beside their component, leveraging Mantine's theming utilities before reaching for raw CSS. ESLint errors such as `react/button-has-type` and `react/self-closing-comp` are considered blocking; fix them prior to review.
-
-## Testing Guidelines
-
-Vitest plus @testing-library/react is available. Store specs near the unit they cover as `ComponentName.test.tsx`. Focus on hooks logic, conditional rendering, and TanStack route loaders. Use fixtures from `src/data` (or inline mocks) to keep assertions deterministic. Run `pnpm test --watch` locally, and add snapshot or accessibility assertions whenever Mantine styling or routing structure changes.
+Use PascalCase for components (`DashboardCard.tsx`), camelCase for hooks/utilities. Mantine styles should live beside their component, leveraging Mantine's theming utilities before reaching for raw CSS.
 
 ## Commit & Pull Request Guidelines
 
-Commits should mirror the existing short, imperative pattern (`use mantine components for index page`). Keep changes scoped and meaningful. PRs must include: a concise summary, linked issue/ticket, before/after screenshots for UI work, and confirmation that `pnpm lint`, `pnpm check:types`, and `pnpm test` passed. Mention any config or env changes up front so reviewers can reproduce.
+Commits should mirror the existing short, imperative pattern (`use mantine components for index page`). Keep changes scoped and meaningful. PRs must include: a concise summary, linked issue/ticket, before/after screenshots for UI work, and confirmation that `pnpm lint` and `pnpm check:types` passed. Mention any config or env changes up front so reviewers can reproduce.
 
 ## Security & Configuration Tips
 
-Secrets belong in `.env.local` (gitignored); reference them through Vite's `import.meta.env`. Run `lefthook install` once so git hooks catch lint/test regressions pre-push. Document any third-party scripts or analytics additions in the PR, including CSP or token requirements.
+Secrets belong in `.env.local` (gitignored); reference them through Vite's `import.meta.env`. Run `lefthook install` once so git hooks catch lint regressions pre-push. Document any third-party scripts or analytics additions in the PR, including CSP or token requirements.
 
 ## Notes
 
@@ -56,6 +77,22 @@ And you can use the context7 mcp tool with the library id `/websites/tanstack_co
 Tanstack Start uses the Tanstack Router under the hood. Read .ai/tanstack-router.md for its documentation.
 
 And you can use the context7 mcp tool with the library id `/websites/tanstack_router` to load (or search) docs.
+
+### @mantine/hooks
+
+Use [@mantine/hooks](https://mantine.dev/hooks/getting-started/) for common React hooks. Prefer these over writing custom hooks when available.
+
+### @mantine/modals
+
+Use [@mantine/modals](https://mantine.dev/x/modals/) for declarative modal management. The ModalsProvider is already configured in `__root.tsx`.
+
+### dayjs
+
+Use [dayjs](https://day.js.org/) for date manipulation. It's a lightweight alternative to moment.js.
+
+### Zod
+
+Use [Zod](https://zod.dev/) v4 for schema validation. Prefer Zod for form validation and API response parsing.
 
 ### Sonner
 
